@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'live-search';
+  inputValue!:string;
+  constructor(){}
+  results:string[]=[];
+
+  selectResult(value:string){
+    this.inputValue=value;
+  }
+  enterValue(value:string){
+  }
 }
