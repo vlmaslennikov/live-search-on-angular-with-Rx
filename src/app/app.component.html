@@ -1,5 +1,5 @@
 <div class="search-block" >
-  <ul tabindex="0" ><input  type="search" placeholder="What needed to be search ?" [(ngModel)]='inputValue' #searchArea (input)='enterValue(searchArea.value)'>
+  <ul><input  type="search" placeholder="What needed to be search ?" [(ngModel)]='inputValue' #searchArea (input)='enterValue(searchArea.value)'>
     <li  (click)='selectResult(result)' *ngFor="let result of results" class="search-result">{{result}}</li>
   </ul>
 </div>
