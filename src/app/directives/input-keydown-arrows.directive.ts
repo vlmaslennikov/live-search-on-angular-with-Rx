@@ -10,14 +10,14 @@ export class InputKeydownArrowsDirective {
     private elementRef: ElementRef,
   ) {}
     @HostListener('keydown.arrowdown') arrowDown(){
-      if (this.elementRef.nativeElement.nextElementSibling) {
+      if (this.elementRef.nativeElement.nextElementSibling.childElementCount!==0) {
         this.renderer.addClass(this.elementRef.nativeElement.nextElementSibling.firstChild, 'selected');
         this.elementRef.nativeElement.nextElementSibling.firstChild.focus();
       }
     }
 
     @HostListener('keydown.arrowup') arrowUp(){
-      if (this.elementRef.nativeElement.nextElementSibling) {
+      if (this.elementRef.nativeElement.nextElementSibling.childElementCount!==0) {
         this.renderer.addClass(this.elementRef.nativeElement.nextElementSibling.lastElementChild, 'selected');
         this.elementRef.nativeElement.nextElementSibling.lastElementChild.focus();
       }

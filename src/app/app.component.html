@@ -1,5 +1,5 @@
 <div class="search-block" >
-  <input  appInputKeydownArrows  type="search" placeholder="What needed to be search ?"  [(ngModel)]="inputValue" #searchArea  (keydown)='goToCoincidences(coincidences)'>
+  <input  appInputKeydownArrows  type="search" placeholder="What needed to be search ?"  [(ngModel)]="inputValue" #searchArea >
   <ul #coincidences   >
     <option   tabindex="1"  (click)='selectResult(result)' (keydown.arrowup)='arrowUp($event)'  (keydown.arrowdown)='arrowDown($event)' (mouseover)='addFocus($event)'  (keydown.enter)='selectResult(result)' *ngFor="let result of results" class="search-result">{{result}} </option>
 
