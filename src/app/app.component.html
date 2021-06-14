@@ -8,6 +8,7 @@
   />
   <ul (setValue)="insertValue($event)" appUlKeydownArrows>
     <li
+      [value]="result"
       tabindex="1"
       (click)="selectResult(result)"
       (keydown.enter)="selectResult(result)"

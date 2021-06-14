@@ -6,47 +6,46 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 export class UlKeydownArrowsDirective {
   @Output() setValue: EventEmitter<string> = new EventEmitter<string>();
 
-  @HostListener('keydown.arrowdown', ['$event']) arrowDown(event: any) {
-    event.target.classList.remove('selected');
-    event.target.removeEventListener('mouseover', this.addFocus);
-    if (event.target !== event.target.parentElement.lastElementChild) {
-      this.setValue.emit(event.target.nextSibling.value);
-      event.target.nextSibling.classList.add('selected');
-      event.target.nextSibling.focus();
-      console.log(
-        'event.target.parentElement.firstElementChild',
-        event.target.parentElement.firstElementChild
-      );
+  @HostListener('keydown.arrowdown', ['$event.target']) arrowDown(
+    event: EventTarget
+  ):void {
+    let eventTarget = event as any;
+    eventTarget.classList.remove('selected');
+    eventTarget.removeEventListener('mouseover', this.addFocus);
+    if (eventTarget != eventTarget?.parentElement.lastElementChild) {
+      this.setValue.emit(eventTarget.nextSibling.value);
+      eventTarget.nextSibling.classList.add('selected');
+      eventTarget.nextSibling.focus();
     } else {
-      this.setValue.emit(event.target.parentElement.firstElementChild.value);
-      event.target.parentElement.firstElementChild.classList.add('selected');
-      event.target.parentElement.firstChild.focus();
+      this.setValue.emit(eventTarget.parentElement.firstElementChild.value);
+      eventTarget.parentElement.firstElementChild.classList.add('selected');
+      eventTarget.parentElement.firstChild.focus();
     }
   }
 
-  @HostListener('keydown.arrowup', ['$event']) arrowUp(event: any) {
-    event.target.removeEventListener('mouseover', this.addFocus);
-    event.target.classList.remove('selected');
-    if (event.target !== event.target.parentElement.firstElementChild) {
-      this.setValue.emit(event.target.previousSibling.value);
-      event.target.previousSibling.classList.add('selected');
-      event.target.previousSibling.focus();
-      console.log(
-        'event.target.parentElement.firstElementChild',
-        event.target.parentElement.firstElementChild
-      );
+  @HostListener('keydown.arrowup', ['$event.target']) arrowUp(
+    event: EventTarget
+  ):void {
+    let eventTarget = event as any;
+    eventTarget.removeEventListener('mouseover', this.addFocus);
+    eventTarget.classList.remove('selected');
+    if (eventTarget !== eventTarget.parentElement.firstElementChild) {
+      this.setValue.emit(eventTarget.previousSibling.value);
+      eventTarget.previousSibling.classList.add('selected');
+      eventTarget.previousSibling.focus();
     } else {
-      this.setValue.emit(event.target.parentElement.lastElementChild.value);
-      event.target.parentElement.lastElementChild.classList.add('selected');
-      event.target.parentElement.lastElementChild.focus();
+      this.setValue.emit(eventTarget.parentElement.lastElementChild.value);
+      eventTarget.parentElement.lastElementChild.classList.add('selected');
+      eventTarget.parentElement.lastElementChild.focus();
     }
   }
 
-  @HostListener('mouseover', ['$event']) addFocus(event: any) {
-    event.target.parentElement.childNodes.forEach((el: any) => {
+  @HostListener('mouseover', ['$event.target']) addFocus(event: EventTarget):void {
+    let eventTarget = event as any;
+    eventTarget.parentElement.childNodes.forEach((el: any) => {
       if (el?.classList?.contains('selected')) el.classList.remove('selected');
     });
-    event.target.classList.add('selected');
-    event.target.focus();
+    eventTarget.classList.add('selected');
+    eventTarget.focus();
   }
 }

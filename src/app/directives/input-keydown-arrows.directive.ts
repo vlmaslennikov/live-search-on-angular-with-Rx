@@ -5,7 +5,7 @@ import { Directive, ElementRef, HostListener, Renderer2 } from '@angular/core';
 })
 export class InputKeydownArrowsDirective {
   constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
-  @HostListener('keydown.arrowdown') arrowDown() {
+  @HostListener('keydown.arrowdown') arrowDown() :void{
     if (
       this.elementRef.nativeElement.nextElementSibling.childElementCount !== 0
     ) {
@@ -17,7 +17,7 @@ export class InputKeydownArrowsDirective {
     }
   }
 
-  @HostListener('keydown.arrowup') arrowUp() {
+  @HostListener('keydown.arrowup') arrowUp():void{
     if (
       this.elementRef.nativeElement.nextElementSibling.childElementCount !== 0
     ) {

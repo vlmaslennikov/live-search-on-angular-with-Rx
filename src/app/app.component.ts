@@ -30,7 +30,8 @@ export class AppComponent {
     this.observable = fromEvent(this.searchArea.nativeElement, 'input')
       .pipe(
         pluck('target', 'value'),
-        mergeMap((val: any) =>
+        debounceTime(500),
+        mergeMap((val) =>
           iif(
             () => val == '',
             of(val).pipe(
@@ -39,11 +40,10 @@ export class AppComponent {
               })
             ),
             of(val).pipe(
-              debounceTime(500),
               map((val: any) => val.trim()),
               distinctUntilChanged(),
-              tap((a: any) => {
-                this.results = this.server.resultsFilter(a as string);
+              tap((val) => {
+                this.results = this.server.resultsFilter(val as string);
               })
             )
           )
@@ -52,17 +52,17 @@ export class AppComponent {
       .subscribe();
   }
 
-  insertValue(value: string) {
+  insertValue(value: string): void {
     this.inputValue = value;
   }
 
-  selectResult(value: string) {
+  selectResult(value: string): void {
     this.inputValue = value;
     this.searchArea.nativeElement.focus();
     this.results.length = 0;
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.observable.unsubscribe();
   }
 }
